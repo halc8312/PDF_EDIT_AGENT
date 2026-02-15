@@ -12,5 +12,5 @@ export OPENAI_API_KEY=sk-...
 ## 実行
 
 ```bash
-python /home/runner/work/PDF_EDIT_AGENT/PDF_EDIT_AGENT/pdf_agent/main.py
+python pdf_agent/main.py
 ```

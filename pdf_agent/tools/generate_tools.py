@@ -1,7 +1,11 @@
 import fitz
 from agents import function_tool
+from pathlib import Path
 
-from tools.edit_tools import _output_path
+
+def _output_path(original: str, suffix: str = "_edited") -> str:
+    path = Path(original)
+    return str(path.with_stem(path.stem + suffix))
 
 
 @function_tool
