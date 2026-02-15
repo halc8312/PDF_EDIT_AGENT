@@ -1,5 +1,6 @@
 import fitz
 from agents import function_tool
+from tools.edit_tools import _output_path
 
 
 @function_tool
@@ -23,7 +24,6 @@ def add_watermark(file_path: str, text: str, font_size: float = 50) -> str:
             morph=(center, fitz.Matrix(45)),
             overlay=True,
         )
-    from tools.edit_tools import _output_path
     out = _output_path(file_path, "_watermarked")
     doc.save(out)
     doc.close()
@@ -54,7 +54,6 @@ def add_page_numbers(
             pt = fitz.Point(r.width / 2 - 10, r.height - 30)
         page.insert_text(pt, str(i + 1), fontsize=font_size, color=(0, 0, 0))
 
-    from tools.edit_tools import _output_path
     out = _output_path(file_path, "_numbered")
     doc.save(out)
     doc.close()
@@ -89,7 +88,6 @@ def add_header_footer(
                 fitz.Point(r.width / 2 - len(footer_text) * 3, r.height - 20),
                 footer_text, fontsize=font_size, color=(0.3, 0.3, 0.3),
             )
-    from tools.edit_tools import _output_path
     out = _output_path(file_path, "_headfoot")
     doc.save(out)
     doc.close()
@@ -118,7 +116,6 @@ def add_text_at_position(
     doc = fitz.open(file_path)
     page = doc[page_number - 1]
     page.insert_text(fitz.Point(x, y), text, fontsize=font_size, color=(0, 0, 0))
-    from tools.edit_tools import _output_path
     out = _output_path(file_path, "_annotated")
     doc.save(out)
     doc.close()

@@ -21,10 +21,11 @@ def delete_pages(file_path: str, page_numbers: list[int]) -> str:
     doc = fitz.open(file_path)
     for pn in sorted(page_numbers, reverse=True):
         doc.delete_page(pn - 1)
+    remaining = len(doc)
     out = _output_path(file_path, "_deleted")
     doc.save(out)
     doc.close()
-    return f"ページ {page_numbers} を削除しました。残り{len(fitz.open(out))}ページ。保存先: {out}"
+    return f"ページ {page_numbers} を削除しました。残り{remaining}ページ。保存先: {out}"
 
 
 @function_tool
@@ -56,9 +57,9 @@ def merge_pdfs(file_paths: list[str], output_path: str) -> str:
     writer = pypdf.PdfWriter()
     for fp in file_paths:
         writer.append(fp)
+    total = len(writer.pages)
     writer.write(output_path)
     writer.close()
-    total = len(pypdf.PdfReader(output_path).pages)
     return f"{len(file_paths)} ファイルを結合しました（全{total}ページ）。保存先: {output_path}"
 
 
